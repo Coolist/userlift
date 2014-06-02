@@ -1,0 +1,10 @@
+{
+	"server": "development",
+	"database": {
+		"couchdb": {
+			"name": "userlift",
+			"server": "localhost",
+			"port": 5984
+		}
+	}
+}
