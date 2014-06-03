@@ -10,8 +10,8 @@ exports.addPageview = (queries) ->
 		'track_user': queries.user || ''
 		'track_url': queries.url || ''
 		'track_title': queries.title || ''
-		'track_referrer': queries.referrer || '',
-		'time_timestamp': JSON.stringify(time),
+		'track_referrer': queries.referrer || ''
+		'time_timestamp': JSON.stringify(time).replace(/\"/g, '')
 		'time_object':
 			'year': time.getFullYear()
 			'month': time.getMonth()
