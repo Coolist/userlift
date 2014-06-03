@@ -10,6 +10,9 @@ module.exports = (app, router) ->
 	# Tracking
 	router.get '/e', track.get
 
+	# Test
+	router.get pre + 'test', track.testDeleteMe
+
 	# Allow all origins for API
 	app.use (req, res, next) ->
 

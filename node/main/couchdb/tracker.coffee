@@ -1,8 +1,5 @@
 # Load modules
-config = require('../../config.json')
-nano = require('nano')('http://' + config.database.couchdb.server + ':' + config.database.couchdb.port)
-
-db = nano.use(config.database.couchdb.name)
+db = require('./connect').db
 
 exports.addPageview = (queries) ->
 
