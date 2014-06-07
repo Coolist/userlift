@@ -1,10 +1,9 @@
 {
 	"server": "development",
 	"database": {
-		"couchdb": {
+		"mongodb": {
 			"name": "userlift",
-			"server": "localhost",
-			"port": 5984
+			"server": "localhost"
 		}
 	}
 }
