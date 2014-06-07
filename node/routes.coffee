@@ -1,6 +1,7 @@
 module.exports = (app, router) ->
 
 	# Load Modules
+	bodyParser = require 'body-parser'
 
 	# Load Controllers
 	track = require './main/tracking/track.coffee'
@@ -18,11 +19,20 @@ module.exports = (app, router) ->
 		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
 
 		next()
-
+	app.use bodyParser()
 	app.use '/', router
 
 	# 404 Fallback
 	app.use (req, res) ->
-		res.status(404)
+		res.json 404,
+			success: false
+			message: 'There is no request at this location.'
 
-		res.send('404 Not Found')
+	# Application errors
+	app.use (err, req, res, next) ->
+		console.error err.stack
+
+		status = err.status || 500
+		res.json status,
+			success: false
+			message: 'An internal server error has occured. This has been logged in our servers.'
