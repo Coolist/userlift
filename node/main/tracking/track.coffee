@@ -4,5 +4,5 @@ db = require '../mongodb/tracker.coffee'
 
 # Tracking pixel
 exports.get = (req, res) ->
-	db.addPageview req.query
-	tracker.servePixel res
+  db.addPageview req.query
+  tracker.servePixel res

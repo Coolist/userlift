@@ -1,7 +1,7 @@
 //Define modules/config
 var express = require('express'),
-	coffee = require('coffee-script/register'),
-	app = express();
+  coffee = require('coffee-script/register'),
+  app = express();
 
 if (coffee) {} // Make JS hint happy (temporary)
 

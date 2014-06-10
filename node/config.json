@@ -1,9 +1,9 @@
 {
-	"server": "development",
-	"database": {
-		"mongodb": {
-			"name": "userlift",
-			"server": "localhost"
-		}
-	}
+  "server": "development",
+  "database": {
+    "mongodb": {
+      "name": "userlift",
+      "server": "localhost"
+    }
+  }
 }
