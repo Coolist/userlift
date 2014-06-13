@@ -3,10 +3,10 @@
 # Config
 IMAGE_URL = 'http://localhost:3000/e';
 
-external.load
-  user: 'Iy8XYtAqWV',
-  experiment: '3UY83vG9qY',
-  bucket: 'idGD65rWFb',
-  url: document.URL + prompt('URL PLEASE', ''),
-  referrer: document.referrer,
-  title: document.title,
+external.page
+  url: document.URL + 'load' # prompt 'URL PLEASE', ''
+  referrer: document.referrer
+  title: document.title
+
+window.onload = () ->
+  init.ready() # This should run after the testing DOM modifications have loaded

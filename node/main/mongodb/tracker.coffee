@@ -8,7 +8,7 @@ url = require 'url'
 exports.addPageview = (queries) ->
 
   time = new Date()
-  urlParsed = url.parse queries.url || ''
+  urlParsed = url.parse queries.url.substring 0, 2048
 
   insert =
     type: 'pageview'
@@ -16,7 +16,7 @@ exports.addPageview = (queries) ->
     experiment_bucket: queries.bucket || ''
     experiment_user: queries.user || ''
     track_url:
-      full: queries.url || ''
+      full: urlParsed.href
       path: urlParsed.path
       domain: urlParsed.hostname
     track_title: queries.title || ''

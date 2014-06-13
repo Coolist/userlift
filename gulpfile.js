@@ -31,7 +31,10 @@ gulp.task('coffeelint', function() {
 gulp.task('compile-tracking', function() {
   gulp
     .src([
+      'tracking/src/browsers.coffee',
+      'tracking/src/plugins.coffee',
       'tracking/src/external.coffee',
+      'tracking/src/init.coffee',
       'tracking/src/core.coffee'
     ])
     .pipe(concat('compile.coffee'))
