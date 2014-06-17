@@ -1,12 +1,16 @@
 # Core
 
+# Expose methods
+window.userlift = window.userlift || []
+window.userlift.page = external.page
+window.userlift.event = external.event
+
 # Config
-IMAGE_URL = 'http://localhost:3000/e';
+IMAGE_URL = 'http://localhost:3000/e'
 
-external.page
-  url: document.URL + 'load' # prompt 'URL PLEASE', ''
-  referrer: document.referrer
-  title: document.title
-
-window.onload = () ->
-  init.ready() # This should run after the testing DOM modifications have loaded
+# Initialize when the DOM is ready
+if document.readyState is 'complete'
+  init.ready()
+else
+  window.onload = () ->
+    init.ready()

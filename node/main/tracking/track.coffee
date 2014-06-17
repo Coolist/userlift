@@ -1,5 +1,5 @@
 # Load modules
-tracker = require '../helpers/tracker.coffee'
+tracker = require '../helpers/tracking.coffee'
 db = require '../mongodb/tracker.coffee'
 
 # Tracking pixel

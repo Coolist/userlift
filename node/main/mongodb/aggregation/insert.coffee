@@ -4,7 +4,6 @@
 
 # Load modules
 db = require('../connect').db
-helpers = require './helpers'
 
 # Collections
 db.tracks = db.collection 'tracks'
@@ -21,12 +20,12 @@ array = [
       {
         type: 'pageview'
         operator: '='
-        value: '/about'
+        value: '/pricing.html'
       },
       {
         type: 'pageview'
         operator: '!='
-        value: '/contact'
+        value: '/get.html'
       }
     ]
   ]

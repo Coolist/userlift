@@ -11,43 +11,48 @@ external.queryString = (queries) ->
   return string.join '&'
 
 external.load = (queries) ->
-  if initReady
 
-    # Create a unique queue ID
-    qid = Date.now().toString() + externalCount.toString()
-    externalCount++
+  # Create a unique queue ID
+  qid = Date.now().toString() + externalCount.toString()
+  externalCount++
 
-    # Store in a queue in local storage if supported
-    if browsersLocalStorage
-      queue = JSON.parse localStorage._request_queue || '{}'
-      queue[qid] = queries
+  # Add a random number to query to prevent caching
+  queries.r = qid
+
+  # Store in a queue in local storage if supported
+  if browsersLocalStorage
+    queue = JSON.parse localStorage._request_queue || '{}'
+    queue[qid] = queries
+    localStorage._request_queue = JSON.stringify queue
+
+  image = new Image()
+  image.src = IMAGE_URL + '?' + external.queryString queries
+  image.alt = qid
+
+  # Delete the item in the queue if the request is successful
+  if browsersLocalStorage
+    image.onload = () ->
+      queue = JSON.parse localStorage._request_queue
+      delete queue[this.alt]
       localStorage._request_queue = JSON.stringify queue
 
-    image = new Image()
-    image.src = IMAGE_URL + '?' + external.queryString queries
-    image.alt = qid
-
-    # Delete the item in the queue if the request is successful
-    if browsersLocalStorage
-      image.onload = () ->
-        queue = JSON.parse localStorage._request_queue
-        delete queue[this.alt]
-        localStorage._request_queue = JSON.stringify queue
-  else
-    init.queue queries
-
 external.page = (queries) ->
+  queries = queries || {}
   queries.type = 'pageview'
   queries.user = 'Iy8XYtAqWV'
-  queries.experiment = '3UY83vG9qY'
-  queries.bucket = 'idGD65rWFb'
+  queries.experiment = window.userlift.experiment.data.id # TODO: Make own var
+  queries.bucket = window.userlift.experiment.bucket.id # TODO: Make own var
+  queries.url = document.URL
+  queries.referrer = document.referrer
+  queries.title = document.title
 
   external.load queries
 
 external.event = (queries) ->
+  queries = queries || {}
   queries.type = 'event'
   queries.user = 'Iy8XYtAqWV'
-  queries.experiment = '3UY83vG9qY'
-  queries.bucket = 'idGD65rWFb'
+  queries.experiment = window.userlift.experiment.data.id # TODO: Make own var
+  queries.bucket = window.userlift.experiment.bucket.id # TODO: Make own var
 
   external.load queries

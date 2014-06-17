@@ -1,0 +1,39 @@
+<script>
+	// Initialize a method queue
+	window.userlift = window.userlift || [];
+
+	// Define methods
+	window.userlift.methods = ['page', 'event'];
+	window.userlift.methodQueue = [];
+
+	// A method to create a method
+	window.userlift.createMethod = function(name) {
+		if (typeof (window.userlift[name]) !== 'function') {
+			window.userlift[name] = function () {
+				window.userlift.methodQueue.push([name, Array.prototype.slice.call(arguments)]);
+			};
+		}
+	};
+
+	// Loop through each method and create a temporary function for it
+	for (var i = 0; i < window.userlift.methods.length; i++) {
+		window.userlift.createMethod(window.userlift.methods[i]);
+	}
+	
+</script>
+
+<!-- Experiment - Loaded synchronously -->
+<script type="text/javascript" src="//cdn.userlift.com/projects/92WT6XW7h7.js"></script>
+
+<!-- Tracking - Loaded asynchronously -->
+<script type="text/javascript" src="//cdn.userlift.com/analytics.v1.js" async></script>
+
+<!--
+****
+**** Minified below
+****
+*-->
+
+<script>window.userlift=window.userlift||[],window.userlift.methods=["page","event"],window.userlift.methodQueue=[],window.userlift.createMethod=function(a){"function"!=typeof window.userlift[a]&&(window.userlift[a]=function(){window.userlift.methodQueue.push([a,Array.prototype.slice.call(arguments)])})};for(var i=0;i<window.userlift.methods.length;i++)window.userlift.createMethod(window.userlift.methods[i]);</script>
+<script type="text/javascript" src="//cdn.userlift.com/projects/92WT6XW7h7.js"></script>
+<script type="text/javascript" src="//cdn.userlift.com/analytics.v1.js" async></script>

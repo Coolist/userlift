@@ -1,6 +1,6 @@
 # Load modules
 db = require('./connect').db
-insertAggregate = require './aggregate/insert'
+insertAggregate = require './aggregation/insert'
 db.tracks = db.collection 'tracks'
 url = require 'url'
 
