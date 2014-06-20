@@ -1,6 +1,6 @@
 # Load modules
-db = require('./connect').db
-insertAggregate = require './aggregation/insert'
+db = require('../mongodb/connect.coffee').db
+insertAggregate = require '../mongodb/aggregation/insert.coffee'
 db.tracks = db.collection 'tracks'
 url = require 'url'
 

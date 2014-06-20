@@ -1,6 +1,5 @@
 # Load modules
 snippets = require './snippets.coffee'
-db = require '../mongodb/tracker.coffee'
 
 # Tracking pixel
 exports.get = (req, res) ->

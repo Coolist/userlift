@@ -4,16 +4,26 @@ module.exports = (app, router) ->
   bodyParser = require 'body-parser'
 
   # Load Controllers
-  track = require './main/tracking/track.coffee'
-  experiment = require './main/experiments/compile.coffee'
+  track = require './main/tracking/controller.coffee'
+  experiment = require './main/experimentSnippet/compile.coffee'
+  project = require './main/projects/controller.coffee'
 
-  pre = '/1/'
+  pre = '/api/1/'
 
   # Tracking
   router.get '/e', track.get
 
   # Experiment snippets
   router.get '/experiments/:id([a-zA-Z0-9]+).js', experiment.get
+
+  # ---- API ---- #
+
+  # Projects
+  router.get pre + 'projects/:id', project.getOne
+  router.get pre + 'projects', project.get
+  router.post pre + 'projects', project.post
+  router.put pre + 'projects/:id', project.update
+  router.delete pre + 'projects/:id', project.delete
 
   # Allow all origins for API
   app.use (req, res, next) ->
@@ -30,7 +40,7 @@ module.exports = (app, router) ->
   app.use (req, res) ->
     res.json 404,
       success: false
-      message: 'There is no request at this location.'
+      messages: ['There is no request at this location.']
 
   # Application errors
   app.use (err, req, res, next) ->
@@ -39,4 +49,4 @@ module.exports = (app, router) ->
     status = err.status || 500
     res.json status,
       success: false
-      message: 'An internal server error has occured. This has been logged in our servers.'
+      messages: ['An internal server error has occured. This has been logged in our servers.']
