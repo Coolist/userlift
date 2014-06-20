@@ -8,7 +8,7 @@ db.projects = db.db.collection 'projects'
 # Helpers
 errors = require '../helpers/errors.coffee'
 
-# Find single project
+# Find a project
 exports.readOne = (params) ->
   db.projects.findOne
     _id: params.id
@@ -50,8 +50,21 @@ exports.update = (params) ->
     _id: params.id
   ,
     name: params.name
-  .then (object) ->
-    if object
+  .then (res) ->
+    if res.ok
       return true
     else
       throw new Error errors.build 'A project with that ID was not found.', 404
+
+# Delete a project
+exports.delete = (params) ->
+  db.projects.findOne
+    _id: params.id
+  .then (object) ->
+    if object
+      db.projects.remove
+        _id: params.id
+      return true
+    else
+      throw new Error errors.build 'A project with that ID was not found.', 404
+    return ret

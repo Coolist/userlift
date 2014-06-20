@@ -65,4 +65,13 @@ exports.update = (req, res) ->
 
 # DELETE project by ID
 exports.delete = (req, res) ->
-  id = req.params.id
+  Q.fcall () ->
+    model.delete
+      id: req.params.id
+  .then (response) ->
+    res.send
+      success: true
+      messages: [ 'Project successfully deleted.' ]
+  .fail (error) ->
+    errors.send error, res
+  .done()
