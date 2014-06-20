@@ -5,12 +5,31 @@ Q = require 'q'
 model = require './model.coffee'
 validate = require './validation.coffee'
 
+# Helpers
+errors = require '../helpers/errors.coffee'
+
 # GET Project by ID
 exports.getOne = (req, res) ->
-  id = req.params.id
+
+  Q.fcall () ->
+    model.findOne
+      id: req.params.id
+  .then (response) ->
+    res.send response, 200
+  .fail (error) ->
+    errors.send error, res
+  .done()
 
 # GET projects (shared with user)
 exports.get = (req, res) ->
+
+  Q.fcall () ->
+    model.find()
+  .then (response) ->
+    res.send response, 200
+  .fail (error) ->
+    errors.send error, res
+  .done()
   
 # POST new projects
 exports.post = (req, res) ->
@@ -19,28 +38,19 @@ exports.post = (req, res) ->
     validate.post req
   .then (sanitized) ->
     model.create sanitized
-  .then () ->
+  .then (id) ->
     res.send
       success: true
       messages: ['Project successfully created.']
+      id: id
     , 200
   .fail (error) ->
-
-    try
-      m = JSON.parse error.message
-    catch e
-      m = [ error.message ]
-
-    res.send
-      success: false
-      messages: m
-    , 400
+    errors.send error, res
   .done()
-
-  id = req.params.id
 
 # UPDATE project by ID
 exports.update = (req, res) ->
+  id = req.params.id
 
 # DELETE project by ID
 exports.delete = (req, res) ->
