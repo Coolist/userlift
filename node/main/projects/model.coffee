@@ -9,7 +9,7 @@ db.projects = db.db.collection 'projects'
 errors = require '../helpers/errors.coffee'
 
 # Find single project
-exports.findOne = (params) ->
+exports.readOne = (params) ->
   db.projects.findOne
     _id: params.id
   .then (object) ->
@@ -23,7 +23,7 @@ exports.findOne = (params) ->
     return ret
 
 # Find all projects
-exports.find = (params) ->
+exports.read = (params) ->
   db.projects.find().toArray()
   .then (object) ->
     ret = []
@@ -43,3 +43,15 @@ exports.create = (params) ->
     name: params.name
   .then (object) ->
     return object._id
+
+# Update a project
+exports.update = (params) ->
+  db.projects.update
+    _id: params.id
+  ,
+    name: params.name
+  .then (object) ->
+    if object
+      return true
+    else
+      throw new Error errors.build 'A project with that ID was not found.', 404

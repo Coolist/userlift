@@ -12,7 +12,7 @@ errors = require '../helpers/errors.coffee'
 exports.getOne = (req, res) ->
 
   Q.fcall () ->
-    model.findOne
+    model.readOne
       id: req.params.id
   .then (response) ->
     res.send response, 200
@@ -24,7 +24,7 @@ exports.getOne = (req, res) ->
 exports.get = (req, res) ->
 
   Q.fcall () ->
-    model.find()
+    model.read()
   .then (response) ->
     res.send response, 200
   .fail (error) ->
@@ -41,7 +41,7 @@ exports.post = (req, res) ->
   .then (id) ->
     res.send
       success: true
-      messages: ['Project successfully created.']
+      messages: [ 'Project successfully created.' ]
       id: id
     , 200
   .fail (error) ->
@@ -50,7 +50,18 @@ exports.post = (req, res) ->
 
 # UPDATE project by ID
 exports.update = (req, res) ->
-  id = req.params.id
+  Q.fcall () ->
+    validate.update req
+  .then (sanitized) ->
+    model.update sanitized
+  .then () ->
+    res.send
+      success: true
+      messages: [ 'Project successfully updated.' ]
+    , 200
+  .fail (error) ->
+    errors.send error, res
+  .done()
 
 # DELETE project by ID
 exports.delete = (req, res) ->
