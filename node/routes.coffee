@@ -5,8 +5,9 @@ module.exports = (app, router) ->
 
   # Load Controllers
   track = require './main/tracking/controller.coffee'
-  experiment = require './main/experimentSnippet/compile.coffee'
+  experimentSnippet = require './main/experimentSnippet/compile.coffee'
   project = require './main/projects/controller.coffee'
+  experiment = require './main/experiments/controller.coffee'
 
   pre = '/api/1/'
 
@@ -14,7 +15,7 @@ module.exports = (app, router) ->
   router.get '/e', track.get
 
   # Experiment snippets
-  router.get '/experiments/:id([a-zA-Z0-9]+).js', experiment.get
+  router.get '/experiments/:id([a-zA-Z0-9]+).js', experimentSnippet.get
 
   # ---- API ---- #
 
@@ -24,6 +25,13 @@ module.exports = (app, router) ->
   router.post pre + 'projects', project.post
   router.put pre + 'projects/:id', project.update
   router.delete pre + 'projects/:id', project.delete
+
+  # Experiments
+  router.get pre + 'projects/:projectId/experiments/:id', experiment.getOne
+  router.get pre + 'projects/:projectId/experiments', experiment.get
+  router.post pre + 'projects/:projectId/experiments', experiment.post
+  router.put pre + 'projects/:projectId/experiments/:id', experiment.update
+  router.delete pre + 'projects/:projectId/experiments/:id', experiment.delete
 
   # Allow all origins for API
   app.use (req, res, next) ->

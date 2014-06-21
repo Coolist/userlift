@@ -5,7 +5,10 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   coffee = require('gulp-coffee'),
   gutil = require('gulp-util'),
-  coffeelint = require('gulp-coffeelint');
+  coffeelint = require('gulp-coffeelint'),
+  mocha = require('gulp-mocha');
+
+require('coffee-script/register');
 
 gulp.task('coffeelint', function() {
   gulp
@@ -42,6 +45,11 @@ gulp.task('compile-tracking', function() {
     .pipe(concat('userlift.js'))
     .pipe(uglify())
     .pipe(gulp.dest('tracking/compiled'));
+});
+
+gulp.task('test', function () {
+  gulp.src('./test/**/*.coffee')
+    .pipe(mocha({reporter: 'spec'}));
 });
 
 // Start Node server + watch files for changes

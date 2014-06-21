@@ -19,6 +19,9 @@
     "gulp-util": "~2.2.14",
     "gulp-nodemon": "~1.0.2",
     "gulp-coffee": "~1.4.3",
-    "gulp-coffeelint": "~0.3.3"
+    "gulp-coffeelint": "~0.3.3",
+    "supertest": "~0.13.0",
+    "should": "~4.0.4",
+    "gulp-mocha": "~0.4.1"
   }
 }

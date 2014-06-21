@@ -4,26 +4,29 @@ Q = require 'q'
 # Load custom modules
 db = require '../mongodb/connect.coffee'
 db.projects = db.db.collection 'projects'
+db.experiments = db.db.collection 'experiments'
 
 # Helpers
 errors = require '../helpers/errors.coffee'
 
 # Find a project
 exports.readOne = (params) ->
-  db.projects.findOne
+  db.experiments.findOne
     _id: params.id
   .then (object) ->
     if object
       ret =
         id: object._id
         name: object.name
+        active: object.active
+        archived: object.archived
     else
-      throw new Error errors.build 'A project with that ID was not found.', 404
+      throw new Error errors.build 'An experiment with that ID was not found.', 404
     return ret
 
 # Find all projects
 exports.read = (params) ->
-  db.projects.find().toArray()
+  db.experiments.find().toArray()
   .then (object) ->
     ret = []
 
@@ -31,20 +34,33 @@ exports.read = (params) ->
       ret.push
         id: item._id
         name: item.name
+        active: item.active
+        archived: item.archived
 
     return ret
 
 # Create new project
 exports.create = (params) ->
-  db.projects.insert
-    _id: db.id()
-    name: params.name
+  experimentId = db.id()
+
+  db.projects.findOne
+    _id: params.projectId
+  .then (object) ->
+    if not object
+      throw new Error errors.build 'A project with that ID was not found.', 404
+  .then () ->
+    db.experiments.insert
+      _id: experimentId
+      project: params.projectId
+      name: params.name
+      active: false
+      archived: false
   .then (object) ->
     return object._id
 
 # Update a project
 exports.update = (params) ->
-  db.projects.update
+  db.experiments.update
     _id: params.id
   ,
     { $set: params.update }
@@ -52,15 +68,15 @@ exports.update = (params) ->
     if res.ok
       return true
     else
-      throw new Error errors.build 'A project with that ID was not found.', 404
+      throw new Error errors.build 'An experiment with that ID was not found.', 404
 
 # Delete a project
 exports.delete = (params) ->
-  db.projects.findOne
+  db.experiments.findOne
     _id: params.id
   .then (object) ->
     if object
-      db.projects.remove
+      db.experiments.remove
         _id: params.id
       return true
     else

@@ -1,9 +1,10 @@
 //Define modules/config
 var express = require('express'),
-  coffee = require('coffee-script/register'),
-  app = express();
+  app = express(),
+  config = require('./node/config.json');
 
-if (coffee) {} // Make JS hint happy (temporary)
+// Run Coffeescript
+require('coffee-script/register')
 
 //Setup express
 app.use(express.static(__dirname + '/static'));
@@ -14,4 +15,4 @@ require('./node/routes')(app, express.Router());
 //Start server
 app.listen(3000);
 
-console.log('Node server running on port 3000');
+console.log('Node ' + config.server + ' server running on port 3000');
