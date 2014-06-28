@@ -39,9 +39,9 @@ external.load = (queries) ->
 external.page = (queries) ->
   queries = queries || {}
   queries.type = 'pageview'
-  queries.user = 'Iy8XYtAqWV'
-  queries.experiment = window.userlift.experiment.data.id # TODO: Make own var
-  queries.bucket = window.userlift.experiment.bucket.id # TODO: Make own var
+  queries.user = externalUserId
+  queries.experiments = externalExperiments.list.join '|'
+  queries.buckets = externalExperiments.buckets.join '|'
   queries.url = document.URL
   queries.referrer = document.referrer
   queries.title = document.title
@@ -51,8 +51,8 @@ external.page = (queries) ->
 external.event = (queries) ->
   queries = queries || {}
   queries.type = 'event'
-  queries.user = 'Iy8XYtAqWV'
-  queries.experiment = window.userlift.experiment.data.id # TODO: Make own var
-  queries.bucket = window.userlift.experiment.bucket.id # TODO: Make own var
+  queries.user = externalUserId
+  queries.experiments = externalExperiments.list.join '|'
+  queries.buckets = externalExperiments.buckets.join '|'
 
   external.load queries

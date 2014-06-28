@@ -2,7 +2,7 @@
   "server": "development",
   "database": {
     "mongodb": {
-      "name": "userlift",
+      "name": "circled",
       "server": "localhost"
     }
   }

@@ -6,7 +6,8 @@ response = require './response.coffee'
 exports.get = (req, res) ->
   type = req.query.type || ''
 
-  switch type
+  ###switch type
     when 'pageview'
       model.addPageview req.query
+  ###
   response.servePixel res

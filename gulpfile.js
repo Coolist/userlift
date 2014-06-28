@@ -24,6 +24,9 @@ gulp.task('coffeelint', function() {
       'no_tabs': {
         'level': 'ignore'
       },
+      'no_backticks': {
+        'level': 'ignore'
+      },
       'max_line_length': {
         'level': 'ignore'
       }
@@ -47,15 +50,29 @@ gulp.task('compile-tracking', function() {
     .pipe(gulp.dest('tracking/compiled'));
 });
 
+gulp.task('compile-experiment', function() {
+  gulp
+    .src([
+      'node/main/experimentSnippet/template/src/plugins.coffee',
+      'node/main/experimentSnippet/template/src/main.coffee'
+    ])
+    .pipe(concat('compile.coffee'))
+    .pipe(coffee({bare: false}).on('error', gutil.log))
+    .pipe(concat('template.js'))
+    //.pipe(uglify())
+    .pipe(gulp.dest('node/main/experimentSnippet/template/compiled'));
+});
+
 gulp.task('test', function () {
   gulp.src('./test/**/*.coffee')
     .pipe(mocha({reporter: 'spec'}));
 });
 
 // Start Node server + watch files for changes
-gulp.task('serve', ['coffeelint', 'compile-tracking'], function () {
+gulp.task('serve', ['coffeelint', 'compile-tracking', 'compile-experiment'], function () {
 
   gulp.watch('tracking/src/**/*.coffee', ['compile-tracking']);
+  gulp.watch('node/main/experimentSnippet/template/src/**/*.coffee', ['compile-experiment']);
 
   nodemon({ script: 'node.js', ext: 'html js coffee', ignore: 'node_modules/*' })
     .on('change', ['coffeelint'])

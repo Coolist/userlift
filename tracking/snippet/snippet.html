@@ -1,23 +1,23 @@
 <script>
 	// Initialize a method queue
-	window.userlift = window.userlift || [];
+	window.circled = window.circled || [];
 
 	// Define methods
-	window.userlift.methods = ['page', 'event'];
-	window.userlift.methodQueue = [];
+	window.circled.methods = ['page', 'event'];
+	window.circled.methodQueue = [];
 
 	// A method to create a method
-	window.userlift.createMethod = function(name) {
-		if (typeof (window.userlift[name]) !== 'function') {
-			window.userlift[name] = function () {
-				window.userlift.methodQueue.push([name, Array.prototype.slice.call(arguments)]);
+	window.circled.createMethod = function(name) {
+		if (typeof (window.circled[name]) !== 'function') {
+			window.circled[name] = function () {
+				window.circled.methodQueue.push([name, Array.prototype.slice.call(arguments)]);
 			};
 		}
 	};
 
 	// Loop through each method and create a temporary function for it
-	for (var i = 0; i < window.userlift.methods.length; i++) {
-		window.userlift.createMethod(window.userlift.methods[i]);
+	for (var i = 0; i < window.circled.methods.length; i++) {
+		window.circled.createMethod(window.circled.methods[i]);
 	}
 	
 </script>
@@ -34,6 +34,6 @@
 ****
 *-->
 
-<script>window.userlift=window.userlift||[],window.userlift.methods=["page","event"],window.userlift.methodQueue=[],window.userlift.createMethod=function(a){"function"!=typeof window.userlift[a]&&(window.userlift[a]=function(){window.userlift.methodQueue.push([a,Array.prototype.slice.call(arguments)])})};for(var i=0;i<window.userlift.methods.length;i++)window.userlift.createMethod(window.userlift.methods[i]);</script>
+<script>window.circled=window.circled||[],window.circled.methods=["page","event"],window.circled.methodQueue=[],window.circled.createMethod=function(a){"function"!=typeof window.circled[a]&&(window.circled[a]=function(){window.circled.methodQueue.push([a,Array.prototype.slice.call(arguments)])})};for(var i=0;i<window.circled.methods.length;i++)window.circled.createMethod(window.circled.methods[i]);</script>
 <script type="text/javascript" src="//cdn.userlift.com/projects/92WT6XW7h7.js"></script>
 <script type="text/javascript" src="//cdn.userlift.com/analytics.v1.js" async></script>

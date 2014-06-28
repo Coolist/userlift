@@ -5,9 +5,9 @@ init.queue = (object) ->
   initQueue.push object
 
 init.loadMethods = () ->
-  if window.userlift.methodQueue
-    for method in window.userlift.methodQueue
-      window.userlift[method[0]].apply undefined, method[1]
+  if window.circled.methodQueue
+    for method in window.circled.methodQueue
+      window.circled[method[0]].apply undefined, method[1]
 
 init.ready = () ->
   if browsersLocalStorage
