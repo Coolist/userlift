@@ -42,6 +42,7 @@ external.page = (queries) ->
   queries.user = externalUserId
   queries.experiments = externalExperiments.list.join '|'
   queries.buckets = externalExperiments.buckets.join '|'
+  queries.session = externalExperiments.session
   queries.url = document.URL
   queries.referrer = document.referrer
   queries.title = document.title
@@ -54,5 +55,6 @@ external.event = (queries) ->
   queries.user = externalUserId
   queries.experiments = externalExperiments.list.join '|'
   queries.buckets = externalExperiments.buckets.join '|'
+  queries.session = externalExperiments.session
 
   external.load queries

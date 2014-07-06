@@ -73,15 +73,30 @@ setBuckets = () ->
       createCookie 'circledBuckets', bucketData, expires.toUTCString()
       buckets = bucketData
 
-userCookie = readCookie 'circledUser'
+# Set a user's session ID
+setSession = () ->
+  session = readCookie 'circledSession'
 
-if userCookie
-  window.circled.userId = userCookie
-else
-  window.circled.userId = randomString 32
-  createCookie 'circledUser', [ window.circled.userId ], (new Date Date.now() + 60 * 60 * 24 * 365 * 5 * 1000).toUTCString()
+  if not session?
+    session = randomString 16
+    createCookie 'circledSession', [ session ]
+
+  window.circled.experiments.session = session
+
+
+# Set user ID
+setUser = () ->
+  user = readCookie 'circledUser'
+
+  if not user?
+    user = randomString 32
+    createCookie 'circledUser', [ user ], (new Date Date.now() + 60 * 60 * 24 * 365 * 5 * 1000).toUTCString()
+
+  window.circled.userId = user
 
 setBuckets()
+setSession()
+setUser()
 
 $ ->
   code = []
