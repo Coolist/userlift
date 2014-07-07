@@ -22,6 +22,10 @@
     "gulp-coffeelint": "~0.3.3",
     "supertest": "~0.13.0",
     "should": "~4.0.4",
-    "gulp-mocha": "~0.4.1"
+    "gulp-mocha": "~0.4.1",
+    "autoprefixer-loader": "~0.1.1"
+  },
+  "scripts": {
+    "start": "mongod & gulp serve & cd angular && gulp watch"
   }
 }

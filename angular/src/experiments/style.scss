@@ -8,3 +8,36 @@ em {
 li {
   padding: 0.5em 0;
 }
+
+a.status {
+  color: #AFAFAF;
+  padding: 0 0.5em;
+}
+
+a.status.active {
+  color: #44D04F;
+}
+
+.loading {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  top: 20px;
+  left: 20px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  animation: loading-spinner linear 1s infinite;
+  
+  &.show {
+    opacity: 1;
+  }
+}
+
+@keyframes loading-spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

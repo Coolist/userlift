@@ -4,13 +4,19 @@ require 'bower/angular-route'
 require 'bower/angular-resource'
 
 # Init app
-experiments = require './experiments'
+components =
+  experiments: require './experiments'
 
-app = angular.module 'circled', [
+dependencies = [
   'ngRoute',
-  'ngResource',
-  experiments.name
+  'ngResource'
 ]
+
+# Add defined compentents to dependencies
+for name, component of components
+  dependencies.push component.name
+
+app = angular.module 'circled', dependencies
 
 # Routes
 app.config ($routeProvider) ->
@@ -19,4 +25,4 @@ app.config ($routeProvider) ->
       controller: 'experimentsCtrl'
       templateUrl: 'experiments/view.html'
     .otherwise
-      redirectTo: '/projects/lJsHFS3kZl/experiments'
+      redirectTo: '/projects'

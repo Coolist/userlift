@@ -8,6 +8,8 @@ experimentsResource = ($resource) ->
     query:
       method: 'GET'
       isArray: true
+    post:
+      method: 'POST'
     get:
       method: 'GET'
     update:

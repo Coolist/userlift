@@ -74,7 +74,7 @@ gulp.task('serve', ['coffeelint', 'compile-tracking', 'compile-experiment'], fun
   gulp.watch('tracking/src/**/*.coffee', ['compile-tracking']);
   gulp.watch('node/main/experimentSnippet/template/src/**/*.coffee', ['compile-experiment']);
 
-  nodemon({ script: 'node.js', ext: 'html js coffee', ignore: 'node_modules/*' })
+  nodemon({ script: 'node.js', ext: 'html js coffee', ignore: ['node_modules/*', 'angular/*'] })
     .on('change', ['coffeelint'])
     .on('restart', function (files) {
       

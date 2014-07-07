@@ -23,7 +23,7 @@ module.exports =
     ,
       # required to write 'require('./style.scss')'
       test: /\.scss$/
-      loaders: ['style','css',"sass?includePaths[]=#{styleRoot}"]
+      loaders: ['style','css','autoprefixer-loader?browsers=last 2 versions, > 5%',"sass?includePaths[]=#{styleRoot}"]
     ,
       test: /\.coffee$/
       loader: 'coffee'
