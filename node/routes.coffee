@@ -8,6 +8,7 @@ module.exports = (app, router) ->
   experimentSnippet = require './main/experimentSnippet/compile.coffee'
   project = require './main/projects/controller.coffee'
   experiment = require './main/experiments/controller.coffee'
+  test = require './main/tests/controller.coffee'
 
   pre = '/api/1/'
 
@@ -32,6 +33,13 @@ module.exports = (app, router) ->
   router.post pre + 'projects/:projectId/experiments', experiment.post
   router.put pre + 'projects/:projectId/experiments/:id', experiment.update
   router.delete pre + 'projects/:projectId/experiments/:id', experiment.delete
+
+  # Tests
+  router.get pre + 'projects/:projectId/experiments/:experimentId/tests/:id', test.getOne
+  router.get pre + 'projects/:projectId/experiments/:experimentId/tests', test.get
+  router.post pre + 'projects/:projectId/experiments/:experimentId/tests', test.post
+  router.put pre + 'projects/:projectId/experiments/:experimentId/tests/:id', test.update
+  router.delete pre + 'projects/:projectId/experiments/:experimentId/tests/:id', test.delete
 
   # Allow all origins for API
   app.use (req, res, next) ->

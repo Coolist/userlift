@@ -28,7 +28,9 @@ exports.readOne = (params) ->
 
 # Find all experiments
 exports.read = (params) ->
-  db.experiments.find().toArray()
+  db.experiments.find
+    project: params.projectId
+  .toArray()
   .then (object) ->
     ret = []
 

@@ -2,3 +2,16 @@ body {
   font-family: sans-serif;
   padding: 40px;
 }
+
+a {
+  color: #6AA9D1;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+input[type="text"] {
+  font-size: 1em;
+}

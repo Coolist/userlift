@@ -1,0 +1,2 @@
+<p>Project: <select ng-model="project" ng-options="projectList.name for projectList in projects" ng-change="action.switch(project)"></select> <a href="javascript:void(0)" ng-click="action.delete(project)">[ Delete ]</a></p>
+<p>Add a new project: <input type="text" ng-model="input.project" /> <a href="javascript:void(0)" ng-click="action.add()">[ Add ]</a></p>

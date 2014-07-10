@@ -4,8 +4,9 @@ require 'bower/angular-route'
 require 'bower/angular-resource'
 
 # Init app
-components =
-  experiments: require './experiments'
+components = [
+  require './experiments'
+]
 
 dependencies = [
   'ngRoute',
@@ -13,7 +14,7 @@ dependencies = [
 ]
 
 # Add defined compentents to dependencies
-for name, component of components
+for component in components
   dependencies.push component.name
 
 app = angular.module 'circled', dependencies

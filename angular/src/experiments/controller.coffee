@@ -1,57 +1,46 @@
 experimentsCtrl = ($scope, $routeParams, experimentsResource) ->
 
-  $scope.projects = [
-    {
-      name: 'Cool Project',
-      id: 'lJsHFS3kZl'
-    },
-    {
-      name: 'Another',
-      id: 'd5l0Nib6pU'
-    }
-  ]
-
-  $scope.project = $scope.projects[0]
-
   # Temp loading var
   $scope.loading = true
 
   experimentsResource.query
-    projectId: $scope.project
+    projectId: $routeParams.projectId
   , (experiments) ->
     $scope.experiments = experiments
     $scope.loading = false
 
   $scope.action =
-    add: () ->
+    add: ->
       name = $scope.input.name
       $scope.input.name = ''
       $scope.loading = true
 
       if name
         experimentsResource.post
-          projectId: $scope.project.id
+          projectId: $routeParams.projectId
         ,
           name: name
-        , (res) ->
+        , (experiment) ->
           $scope.experiments.push
             name: name
-            id: res.id
+            id: experiment.id
             active: false
             archived: false
           $scope.loading = false
+      else
+        $scope.loading = false
     
 
     delete: (experiment) ->
-      $scope.experiments.splice $scope.experiments.indexOf(experiment), 1
-      $scope.loading = true
+      if confirm 'Delete experiment ' + experiment.name + '?'
+        $scope.experiments.splice $scope.experiments.indexOf(experiment), 1
+        $scope.loading = true
 
-      experimentsResource.delete
-        projectId: $scope.project
-        experimentId: experiment.id
-      , (success) ->
-        console.log success
-        $scope.loading = false
+        experimentsResource.delete
+          projectId: $routeParams.projectId
+          experimentId: experiment.id
+        , (success) ->
+          $scope.loading = false
   
 
     archive: (experiment) ->
@@ -94,8 +83,8 @@ experimentsCtrl = ($scope, $routeParams, experimentsResource) ->
   
 
 module.exports = [
-  '$scope',
-  '$routeParams',
-  'experimentsResource',
+  '$scope'
+  '$routeParams'
+  'experimentsResource'
   experimentsCtrl
 ]
