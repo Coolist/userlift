@@ -1,4 +1,4 @@
-experimentsCtrl = ($scope, $routeParams, experimentsResource) ->
+experimentsCtrl = ($scope, $routeParams, $location, experimentsResource) ->
 
   # Temp loading var
   $scope.loading = true
@@ -80,11 +80,16 @@ experimentsCtrl = ($scope, $routeParams, experimentsResource) ->
         active: experiment.active
       , () ->
         $scope.loading = false
+
+    goto:
+      tests: (experiment) ->
+        $location.path 'projects/' + $routeParams.projectId + '/experiments/' + experiment.id + '/tests'
   
 
 module.exports = [
   '$scope'
   '$routeParams'
+  '$location'
   'experimentsResource'
   experimentsCtrl
 ]

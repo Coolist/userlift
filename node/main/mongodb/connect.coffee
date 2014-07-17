@@ -10,3 +10,8 @@ shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX
 exports.db = db
 exports.id = () ->
   return shortId.generate().replace /\-|\+/g, Math.floor Math.random() * 9 + 1
+
+# Ensure an index on tokens
+tokens = db.collection 'tokens'
+
+tokens.ensureIndex { token: 1 }

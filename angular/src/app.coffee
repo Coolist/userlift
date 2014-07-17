@@ -6,6 +6,7 @@ require 'bower/angular-resource'
 # Init app
 components = [
   require './experiments'
+  require './tests'
 ]
 
 dependencies = [
@@ -25,5 +26,8 @@ app.config ($routeProvider) ->
     .when '/projects/:projectId/experiments',
       controller: 'experimentsCtrl'
       templateUrl: 'experiments/view.html'
+    .when '/projects/:projectId/experiments/:experimentId/tests',
+      controller: 'testsCtrl'
+      templateUrl: 'tests/view.html'
     .otherwise
       redirectTo: '/projects'

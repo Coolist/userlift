@@ -1,9 +1,10 @@
 api = require '../common/api'
 
-experimentsResource = ($resource) ->
-  return $resource api.config.endpoint + '/projects/:projectId/experiments/:experimentId',
+testsResource = ($resource) ->
+  return $resource api.config.endpoint + '/projects/:projectId/experiments/:experimentId/tests/:testId',
     projectId: '@projectId'
     experimentId: '@experimentId'
+    testId: '@testId'
   ,
     query:
       method: 'GET'
@@ -20,5 +21,5 @@ experimentsResource = ($resource) ->
 
 module.exports = [
   '$resource'
-  experimentsResource
+  testsResource
 ]

@@ -6,6 +6,7 @@ body {
 a {
   color: #6AA9D1;
   text-decoration: none;
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;
@@ -14,4 +15,32 @@ a {
 
 input[type="text"] {
   font-size: 1em;
+
+  &:focus {
+    outline: 3px solid #A3DAA8;
+  }
+}
+
+.loading {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  top: 20px;
+  left: 20px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  animation: loading-spinner linear 1s infinite;
+  
+  &.show {
+    opacity: 1;
+  }
+}
+
+@keyframes loading-spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

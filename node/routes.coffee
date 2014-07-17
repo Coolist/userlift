@@ -6,6 +6,7 @@ module.exports = (app, router) ->
   # Load Controllers
   track = require './main/tracking/controller.coffee'
   experimentSnippet = require './main/experimentSnippet/compile.coffee'
+  authentication = require './main/authentication/controller.coffee'
   project = require './main/projects/controller.coffee'
   experiment = require './main/experiments/controller.coffee'
   test = require './main/tests/controller.coffee'
@@ -19,6 +20,13 @@ module.exports = (app, router) ->
   router.get '/experiments/:id([a-zA-Z0-9]+).js', experimentSnippet.get
 
   # ---- API ---- #
+
+  # Accounts
+  router.post pre + 'authentication', authentication.post
+  router.get pre + 'authentication/access', authentication.getAccess
+  router.get pre + 'authentication/request', authentication.getRequest
+  router.put pre + 'authentication', authentication.update
+  router.delete pre + 'authentication', authentication.delete
 
   # Projects
   router.get pre + 'projects/:id', project.getOne

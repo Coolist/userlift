@@ -45,6 +45,7 @@ describe 'Tests', () ->
       .post "/projects/#{projectId}/experiments/#{experimentId}/tests"
       .send
         name: 'Test Test'
+        color: '#DF5D1E'
       .end (e, res) ->
         res.status.should.equal 200
         res.body.success.should.equal true
@@ -74,6 +75,7 @@ describe 'Tests', () ->
           .end (e, res) ->
             res.status.should.equal 200
             res.body.id.length.should.be.above 0
+            res.body.color.should.equal '#DF5D1E'
             done()
 
   it 'should update a test by id', (done) ->
@@ -86,6 +88,7 @@ describe 'Tests', () ->
           .put "/projects/#{projectId}/experiments/#{experimentId}/tests/#{testId}"
           .send
             name: 'Renamed Test Test'
+            color: 'FFFFFF'
           .end (e, res) ->
             res.status.should.equal 200
             res.body.success.should.equal true
@@ -94,6 +97,7 @@ describe 'Tests', () ->
               .get "/projects/#{projectId}/experiments/#{experimentId}/tests/#{testId}"
               .end (e, res) ->
                 res.body.name.should.equal 'Renamed Test Test'
+                res.body.color.should.equal '#FFFFFF'
                 done()
 
   it 'should delete a test by id', (done) ->

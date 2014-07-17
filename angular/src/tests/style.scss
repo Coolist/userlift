@@ -3,11 +3,6 @@
 em {
   font-style: normal;
   background-color: #F8F7AE;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #E5E46D;
-  }
 }
 
 li {
@@ -21,4 +16,10 @@ a.status {
 
 a.status.active {
   color: #44D04F;
+}
+
+span.color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
 }

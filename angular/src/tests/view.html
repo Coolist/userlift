@@ -1,0 +1,10 @@
+<projects project="project"></projects>
+<img src="assets/images/loading.svg" class="loading" ng-class="{show: loading}" />
+<a ng-click="action.goto.project()">&larr; Back to {{ project.name }}</a>
+<h2>Tests</h2>
+<ul>
+  <li ng-repeat="test in tests">
+    <span style="background-color: {{ test.color }}" class="color"></span> {{ test.name }} <a ng-click="action.delete(test)" ng-class="{active: active}" >[ X ]</a>
+  </li>
+</ul>
+<p>Add new test: <input type="text" ng-model="input.name" /> <a ng-click="action.add()">[ Add ]</a></p>

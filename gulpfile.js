@@ -59,7 +59,7 @@ gulp.task('compile-experiment', function() {
     .pipe(concat('compile.coffee'))
     .pipe(coffee({bare: false}).on('error', gutil.log))
     .pipe(concat('template.js'))
-    //.pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('node/main/experimentSnippet/template/compiled'));
 });
 

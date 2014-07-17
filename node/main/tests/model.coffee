@@ -18,6 +18,7 @@ exports.readOne = (params) ->
       ret =
         id: object._id
         name: object.name
+        color: object.color
 
       # FILL THIS IN
 
@@ -37,6 +38,7 @@ exports.read = (params) ->
       ret.push
         id: item._id
         name: item.name
+        color: item.color
         
         # FILL THIS IN
 
@@ -56,6 +58,7 @@ exports.create = (params) ->
       _id: testId
       experiment: params.experimentId
       name: params.name
+      color: params.color
       
       # FILL THIS IN
 
