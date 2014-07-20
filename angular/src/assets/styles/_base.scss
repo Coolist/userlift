@@ -13,7 +13,7 @@ a {
   }
 }
 
-input[type="text"] {
+input[type="text"], input[type="email"], input[type="password"] {
   font-size: 1em;
 
   &:focus {

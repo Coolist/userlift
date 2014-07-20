@@ -15,3 +15,4 @@ exports.id = () ->
 tokens = db.collection 'tokens'
 
 tokens.ensureIndex { token: 1 }
+tokens.ensureIndex { expires: 1 }, { expireAfterSeconds: 0 }

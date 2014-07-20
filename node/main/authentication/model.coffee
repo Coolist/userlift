@@ -50,10 +50,10 @@ exports.createRequest = (params) ->
       type: 'request'
       token: uid 32
       account: token.account
-      expires: new Date Date.now() + 60 * 60 * 24
+      expires: new Date Date.now() + 1000 * 60 * 60
 
   .then (object) ->
-    return object.token
+    return object
 
 # Create new account
 exports.create = (params) ->
@@ -107,5 +107,48 @@ exports.delete = (params) ->
   .then (account) ->
     db.accounts.remove
       _id: account.id
+  .then (res) ->
+    return true
+
+# Create reset request
+exports.createResetRequest = (params) ->
+
+  db.accounts.findOne
+    email: params.email
+  .then (object) ->
+    if not object?
+      throw new Error errors.build 'No account exists with this email.', 404
+    return object
+  .then (account) ->
+    db.tokens.insert
+      type: 'reset'
+      token: uid 32
+      account: account._id
+      expires: new Date Date.now() + 1000 * 60 * 60 * 2
+
+  .then (res) ->
+    return true
+
+# Reset password
+exports.createReset = (params) ->
+
+  db.tokens.findOne
+    token: params.token
+  .then (object) ->
+    if not object?
+      throw new Error errors.build 'Incorrect reset token.', 400
+    else if object.type isnt 'reset'
+      throw new Error errors.build 'Incorrect reset token.', 400
+    return object
+  .then (token) ->
+    db.accounts.update
+      _id: token.account
+    ,
+      password: params.password
+
+    return token
+  .then (token) ->
+    db.tokens.remove
+      token: token.token
   .then (res) ->
     return true

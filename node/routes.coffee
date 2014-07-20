@@ -27,6 +27,8 @@ module.exports = (app, router) ->
   router.get pre + 'authentication/request', authentication.getRequest
   router.put pre + 'authentication', authentication.update
   router.delete pre + 'authentication', authentication.delete
+  router.post pre + 'authentication/reset/request', authentication.postResetRequest
+  router.post pre + 'authentication/reset', authentication.postReset
 
   # Projects
   router.get pre + 'projects/:id', project.getOne

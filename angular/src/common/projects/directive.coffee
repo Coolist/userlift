@@ -26,14 +26,18 @@ projectsCtrl = ($scope, $location, $routeParams, projectsResource) ->
 
           $scope.action.switch $scope.projects[index - 1]
     switch: (project) ->
-      $location.path 'projects/' + project.id + '/experiments'
+      $location.path 'projects/' + project.id
     delete: (project) ->
       if confirm 'Delete project ' + project.name + '?'
         projectsResource.delete
           projectId: project.id
         , () ->
           $scope.projects.splice $scope.projects.indexOf(project), 1
-          $scope.action.switch $scope.projects[0]
+
+          if $scope.projects.length > 0
+            $scope.action.switch $scope.projects[0]
+          else
+            $location.path 'projects'
 
 
 projects.directive 'projects', () ->

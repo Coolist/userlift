@@ -2,9 +2,13 @@
 require 'bower/angular'
 require 'bower/angular-route'
 require 'bower/angular-resource'
+require 'bower/ngstorage'
 
 # Init app
 components = [
+  require './common/authentication'
+  require './account'
+  require './projects'
   require './experiments'
   require './tests'
 ]
@@ -12,6 +16,7 @@ components = [
 dependencies = [
   'ngRoute',
   'ngResource'
+  'ngStorage'
 ]
 
 # Add defined compentents to dependencies
@@ -23,10 +28,19 @@ app = angular.module 'circled', dependencies
 # Routes
 app.config ($routeProvider) ->
   $routeProvider
-    .when '/projects/:projectId/experiments',
+    .when '/account/login',
+      controller: 'accountCtrl'
+      templateUrl: 'account/login/view.html'
+    .when '/account/signup',
+      controller: 'accountCtrl'
+      templateUrl: 'account/signup/view.html'
+    .when '/projects',
+      controller: 'projectsCtrl'
+      templateUrl: 'projects/view.html'
+    .when '/projects/:projectId',
       controller: 'experimentsCtrl'
       templateUrl: 'experiments/view.html'
-    .when '/projects/:projectId/experiments/:experimentId/tests',
+    .when '/projects/:projectId/experiments/:experimentId',
       controller: 'testsCtrl'
       templateUrl: 'tests/view.html'
     .otherwise

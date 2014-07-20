@@ -1,9 +1,10 @@
 api = require '../common/api'
 
 experimentsResource = ($resource) ->
-  return $resource api.config.endpoint + '/projects/:projectId/experiments/:experimentId',
+  $resource api.config.endpoint + '/projects/:projectId/experiments/:experimentId',
     projectId: '@projectId'
     experimentId: '@experimentId'
+    auth: true
   ,
     query:
       method: 'GET'

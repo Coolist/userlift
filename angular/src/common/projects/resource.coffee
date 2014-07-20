@@ -3,6 +3,7 @@ api = require '../api'
 projectsResource = ($resource) ->
   return $resource api.config.endpoint + '/projects/:projectId',
     projectId: '@projectId',
+    auth: true
   ,
     query:
       method: 'GET'

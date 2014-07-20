@@ -88,7 +88,7 @@ exports.update = (req) ->
   if sanitized.update.password?
     failed.push 'Password must be at least 6 characters.' if not validate.isLength sanitized.update.password, 6
 
-  if failed.length is 0
+  if failed.length is 0 and sanitized.update.password?
     sanitized.update.password = bcrypt.hashSync sanitized.update.password
 
   if failed.length > 0
@@ -97,7 +97,7 @@ exports.update = (req) ->
   
   return sanitized
 
-# UPDATE
+# DELETE
 exports.delete = (req) ->
 
   sanitized =
@@ -107,6 +107,45 @@ exports.delete = (req) ->
   failed = []
 
   failed.push 'Original password is required.' if not sanitized.password?
+
+  if failed.length > 0
+    throw new Error errors.build failed
+    return false
+  
+  return sanitized
+
+# POST:Reset Request
+exports.postResetRequest = (req) ->
+  sanitized =
+    email: req.body.email
+
+  failed = []
+
+  failed.push 'Email is required.' if not sanitized.email?
+  failed.push 'Email is invalid.' if not validate.isEmail sanitized.email
+
+  if failed.length > 0
+    throw new Error errors.build failed
+    return false
+  
+  return sanitized
+
+# POST:Reset
+exports.postReset = (req) ->
+  sanitized =
+    token: req.body.token
+    password: req.body.password
+
+  failed = []
+
+  failed.push 'Token is required.' if not sanitized.token?
+  failed.push 'Password is required.' if not sanitized.password?
+
+  if sanitized.password?
+    failed.push 'Password must be at least 6 characters.' if not validate.isLength sanitized.password, 6
+
+  if failed.length is 0
+    sanitized.password = bcrypt.hashSync sanitized.password
 
   if failed.length > 0
     throw new Error errors.build failed

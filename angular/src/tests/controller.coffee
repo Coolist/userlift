@@ -45,7 +45,7 @@ testsCtrl = ($scope, $routeParams, $location, testsResource) ->
 
     goto:
       project: () ->
-        $location.path 'projects/' + $routeParams.projectId + '/experiments'
+        $location.path 'projects/' + $routeParams.projectId
 
 module.exports = [
   '$scope'

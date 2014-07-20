@@ -1,0 +1,25 @@
+label {
+  display: block;
+
+  span {
+    display: block;
+    margin-top: 1em;
+  }
+
+  input {
+    display: block;
+    width: 200px;
+    box-sizing: border-box;
+  }
+}
+
+button {
+  box-sizing: border-box;
+  display: block;
+  margin-top: 2em;
+  font-size: 1em;
+  padding: 0.5em;
+  text-align: center;
+  width: 200px;
+  cursor: pointer;
+}

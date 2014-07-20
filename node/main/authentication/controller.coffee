@@ -34,7 +34,8 @@ exports.getRequest = (req, res) ->
   .then (token) ->
     res.send
       success: true
-      token: token
+      token: token.token
+      expires: token.expires
     , 200
   .fail (error) ->
     errors.send error, res
@@ -83,6 +84,38 @@ exports.delete = (req, res) ->
     res.send
       success: true
       messages: [ 'Account successfully deleted.' ]
+    , 200
+  .fail (error) ->
+    errors.send error, res
+  .done()
+
+# POST - Request password reset
+exports.postResetRequest = (req, res) ->
+
+  Q.fcall () ->
+    validate.postResetRequest req
+  .then (sanitized) ->
+    model.createResetRequest sanitized
+  .then (account) ->
+    res.send
+      success: true
+      messages: [ 'Reset request successfully sent.' ]
+    , 200
+  .fail (error) ->
+    errors.send error, res
+  .done()
+
+# POST - Reset password
+exports.postReset = (req, res) ->
+
+  Q.fcall () ->
+    validate.postReset req
+  .then (sanitized) ->
+    model.createReset sanitized
+  .then (account) ->
+    res.send
+      success: true
+      messages: [ 'Password successfully reset.' ]
     , 200
   .fail (error) ->
     errors.send error, res

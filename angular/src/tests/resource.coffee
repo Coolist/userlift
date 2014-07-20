@@ -5,6 +5,7 @@ testsResource = ($resource) ->
     projectId: '@projectId'
     experimentId: '@experimentId'
     testId: '@testId'
+    auth: true
   ,
     query:
       method: 'GET'
